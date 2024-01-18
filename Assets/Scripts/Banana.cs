@@ -4,6 +4,8 @@ using UnityEngine;
 using TMPro;
 using System.Drawing;
 using UnityEditor.AnimatedValues;
+using System;
+using System.Reflection;
 
 public class Banana : MonoBehaviour
 {
@@ -11,19 +13,20 @@ public class Banana : MonoBehaviour
     [Header("Banana Object")]
     [SerializeField] TextMeshProUGUI totalBananasText;
     [SerializeField, Tooltip("Currency")] double totalBananas;
-    [SerializeField, Tooltip("Currency / click")] int bananasOnClick = 1;
 
     [Space]
 
     [SerializeField, Tooltip("How many bananas you have acumilated in total")] double lifeTimeBanana;
 
+    [Header("On Click")]
+    [SerializeField] GameObject spawnOnClick;
+    [SerializeField, Tooltip("Currency / click")] int bananasOnClick = 1;
 
     [Header("Bananas per Second")]
     [SerializeField] TextMeshProUGUI bananasPerSecondText;
     [SerializeField] double bananasPerSecond;
 
     [Header("Banana UI Element")]
-
     [SerializeField] float onClickMultipiler = 1.35f;
     [SerializeField] float sizeTransitionSpeed;
 
@@ -44,24 +47,28 @@ public class Banana : MonoBehaviour
         bananaRectTransform = GetComponent<RectTransform>();
         shop = FindObjectOfType<Shop>();
         sizeAtStart = bananaRectTransform.sizeDelta;
-        size = sizeAtStart;
     }
 
     public void Update()
+    {
+        SetCurrentMaxSize();
+    }
+
+    public void SetCurrentMaxSize()
     {
         Vector2 currentMaxSize = sizeAtStart * sizeMultiplier;
 
         size = bananaRectTransform.sizeDelta;
 
-        if(currentMaxSize.x > size.x && currentMaxSize.x > size.y && sizeMultiplier > 1)
+        if (currentMaxSize.x > size.x && currentMaxSize.x > size.y && sizeMultiplier > 1)
         {
             bananaRectTransform.sizeDelta = Vector2.Lerp(size, new(size.x * sizeMultiplier, size.y * sizeMultiplier), Time.deltaTime * sizeTransitionSpeed);
         }
-        else if(currentMaxSize.x < size.x && currentMaxSize.x < size.y && sizeMultiplier < 1)
+        else if (currentMaxSize.x < size.x && currentMaxSize.x < size.y && sizeMultiplier < 1)
         {
             bananaRectTransform.sizeDelta = Vector2.Lerp(size, new(size.x * sizeMultiplier, size.y * sizeMultiplier), Time.deltaTime * sizeTransitionSpeed);
         }
-        else if(sizeMultiplier == 1)
+        else if (sizeMultiplier == 1)
         {
             bananaRectTransform.sizeDelta = Vector2.Lerp(size, new(sizeAtStart.x, sizeAtStart.y), Time.deltaTime * sizeTransitionSpeed);
         }
@@ -69,17 +76,6 @@ public class Banana : MonoBehaviour
         {
             bananaRectTransform.sizeDelta = currentMaxSize;
         }
-    }
-
-    public void Click()
-    {
-        AddBananas(bananasOnClick);
-        AddLifeTimeBanana(bananasOnClick);
-    }
-
-    public void ChangeSize(float multiplier)
-    {
-        sizeMultiplier = multiplier;
     }
 
     public void UpdateText()
@@ -93,6 +89,25 @@ public class Banana : MonoBehaviour
         bananasPerSecond = System.Math.Round(shop.GetBPS(), 1);
         bananasPerSecondText.text = bananasPerSecond.ToString() + "/s";
     }
+
+    public void InstanisateOnMousePointer()
+    {
+        Vector2 mousePos = Input.mousePosition;
+        Instantiate(spawnOnClick, mousePos, Quaternion.identity);
+    }
+
+    #region Eventrigger
+    public void Click()
+    {
+        AddBananas(bananasOnClick);
+        AddLifeTimeBanana(bananasOnClick);
+    }
+
+    public void ChangeSize(float multiplier)
+    {
+        sizeMultiplier = multiplier;
+    }
+    #endregion
 
     #region Change Values
     public void RemoveBananas(double remove)
@@ -118,6 +133,10 @@ public class Banana : MonoBehaviour
     public double GetLifeTimeBananas()
     {
         return lifeTimeBanana;
+    }
+    public int GetBananasOnClick()
+    {
+        return bananasOnClick;
     }
     #endregion
 }

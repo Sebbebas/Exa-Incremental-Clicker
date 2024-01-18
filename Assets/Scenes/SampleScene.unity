@@ -1772,8 +1772,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalBananasText: {fileID: 29067357}
   totalBananas: 0
-  bananasOnClick: 1
   lifeTimeBanana: 0
+  spawnOnClick: {fileID: 7278056413358738792, guid: 584e8ceebea670d49b5d1546c7b6f46e, type: 3}
+  bananasOnClick: 1
   bananasPerSecondText: {fileID: 192885809}
   bananasPerSecond: 0
   onClickMultipiler: 1.35
@@ -1787,7 +1788,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1925025281}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -1861,7 +1862,7 @@ MonoBehaviour:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
-            m_FloatArgument: 1.3
+            m_FloatArgument: 1.1
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
@@ -1893,7 +1894,7 @@ MonoBehaviour:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
-            m_FloatArgument: 1.1
+            m_FloatArgument: 0.9
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
@@ -1909,7 +1910,35 @@ MonoBehaviour:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
-            m_FloatArgument: 1.3
+            m_FloatArgument: 1.1
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - eventID: 4
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1925025285}
+          m_TargetAssemblyTypeName: Banana, Assembly-CSharp
+          m_MethodName: Click
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 1.1
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 1925025285}
+          m_TargetAssemblyTypeName: Banana, Assembly-CSharp
+          m_MethodName: InstanisateOnMousePointer
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
