@@ -19,7 +19,10 @@ public class Shop : MonoBehaviour
     //Configurable Parameters
     [Header("Shop")]
     [SerializeField] Workers[] workers;
-
+    [SerializeField] Color unlockedColor;
+    [SerializeField] Color notUnlockedColor;
+    [SerializeField] Color toExpensiveColor;
+    [SerializeField] Color sellColor;
     
     //Private Variabels
     private float time;
@@ -52,6 +55,10 @@ public class Shop : MonoBehaviour
         public TextMeshProUGUI nameText;
         public TextMeshProUGUI priceText;
         public TextMeshProUGUI totalText;
+
+        [Space]
+
+        public bool unlocked;
     }
 
     private void Start()
@@ -115,7 +122,16 @@ public class Shop : MonoBehaviour
             else { worker.priceText.text = worker.startPrice.ToString(); }
 
             //Unlock?
-            if (worker.startPrice > banana.GetLifeTimeBananas()) { Image parent = worker.nameText.GetComponentInParent<Image>(); }
+            Image parent = worker.nameText.GetComponentInParent<Image>();
+
+            if (worker.startPrice <= banana.GetBananas() || worker.totalText.alpha > 0) 
+            {
+                parent.color = unlockedColor;
+            }
+            else
+            {
+                parent.color = notUnlockedColor;
+            }
         }
     }
 

@@ -2,10 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.Drawing;
-using UnityEditor.AnimatedValues;
-using System;
-using System.Reflection;
 
 public class Banana : MonoBehaviour
 {
@@ -92,8 +88,7 @@ public class Banana : MonoBehaviour
 
     public void InstanisateOnMousePointer()
     {
-        Vector2 mousePos = Input.mousePosition;
-        Instantiate(spawnOnClick, mousePos, Quaternion.identity);
+        Instantiate(spawnOnClick, transform.position.normalized, Quaternion.identity);
     }
 
     #region Eventrigger
