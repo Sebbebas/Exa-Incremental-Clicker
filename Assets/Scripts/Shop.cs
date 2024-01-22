@@ -19,14 +19,14 @@ public class Shop : MonoBehaviour
     //Configurable Parameters
     [Header("Shop")]
     [SerializeField] Workers[] workers;
-    [SerializeField] Color unlockedColor;
     [SerializeField] Color notUnlockedColor;
+    [SerializeField] Color canAffordColor;
     [SerializeField] Color toExpensiveColor;
     [SerializeField] Color sellColor;
     
     //Private Variabels
-    private float time;
     private double currentBPS;
+    private float time;
 
     //15%
     private float procentegeIncresse = 1.15f;
@@ -55,11 +55,9 @@ public class Shop : MonoBehaviour
         public TextMeshProUGUI nameText;
         public TextMeshProUGUI priceText;
         public TextMeshProUGUI totalText;
-
-        [Space]
-
-        public bool unlocked;
     }
+
+    private double mostExpensiveUpgrade;
 
     private void Start()
     {
@@ -124,9 +122,14 @@ public class Shop : MonoBehaviour
             //Unlock?
             Image parent = worker.nameText.GetComponentInParent<Image>();
 
-            if (worker.startPrice <= banana.GetBananas() || worker.totalText.alpha > 0) 
+
+            if (worker.price <= banana.GetBananas() && worker.price > 0 || worker.startPrice <= banana.GetBananas() && worker.startPrice > worker.price) 
+            { 
+                parent.color = canAffordColor; 
+            }
+            else if (worker.totalText.alpha > 0 || worker.startPrice < mostExpensiveUpgrade) 
             {
-                parent.color = unlockedColor;
+                parent.color = toExpensiveColor;
             }
             else
             {
@@ -154,6 +157,7 @@ public class Shop : MonoBehaviour
         workers[type].price = Mathf.RoundToInt(price);
 
         if(Mathf.RoundToInt(price) <= banana.GetBananas()) { banana.RemoveBananas(price); workers[type].total++; workers[type].price = nextUpgradeCost; }
+        if(mostExpensiveUpgrade < Mathf.RoundToInt(price)) { mostExpensiveUpgrade = Mathf.RoundToInt(price); }
     }
 
     public double GetBPS()

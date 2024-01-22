@@ -79,11 +79,11 @@ public class Banana : MonoBehaviour
         //Round BANANAS to 1 decimal
         double originalValue = totalBananas;
         totalBananas = System.Math.Round(originalValue, 1);
-        totalBananasText.text = totalBananas.ToString();
+        totalBananasText.text = totalBananas.ToString() + " Bananas";
 
         //BANANAS Per Second
         bananasPerSecond = System.Math.Round(shop.GetBPS(), 1);
-        bananasPerSecondText.text = bananasPerSecond.ToString() + "/s";
+        bananasPerSecondText.text = "per second: " + bananasPerSecond.ToString();
     }
 
     public void InstanisateOnMousePointer()
